@@ -1,0 +1,46 @@
+version: '3.1'
+services:
+  payment-service:
+    image: jesusfarfan/pismo-payment-service:latest
+    restart: always
+    ports:
+      - 8080:8080
+    healthcheck:
+      #test: ["CMD", "curl", "--fail", "--silent", "localhost:8080/actuator/health 2>&1 | grep UP || exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/management/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "1"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+
+  mysql:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 60s
+      retries: 10
+    ports:
+      - 3306:3306
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "1"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}

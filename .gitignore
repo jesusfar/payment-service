@@ -1,0 +1,39 @@
+.checkstyle
+.eclipse-pmd
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+/.quality/
+/bin/
+/environment/charts/csr-service/charts/*.tgz
+/environment/charts/csr-service/requirements.lock
+/.embedded-elasticsearch/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# SoapUI backup directory
+.tmp/
