@@ -1,4 +1,4 @@
-# Pismo Payment Service Demo
+# Payment Service Demo
 
 This is a basic implementation REST API for a backend service based on Spring Boot 2 and Spring Data JPA.
 
